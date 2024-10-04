@@ -1,6 +1,6 @@
 # kinds_store
 
-A new Flutter project.
+An ecommerce project with flutter
 
 ## Getting Started
 
