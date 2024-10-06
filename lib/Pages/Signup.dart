@@ -1,6 +1,10 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:kinds_store/Coming_Soon.dart';
 import 'package:kinds_store/Components/colors.dart';
+import 'package:kinds_store/Pages/Signin.dart';
+import 'package:kinds_store/Pages/home.dart';
 import 'package:kinds_store/Utiliis/Buttons.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -11,6 +15,45 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  String fullname = '';
+  String email = '';
+  String password = '';
+
+  TextEditingController fullnamecontroller = new TextEditingController();
+  TextEditingController mailcontroller = new TextEditingController();
+  TextEditingController passwordcontroller = new TextEditingController();
+
+  // the reg function
+
+  registration() async {
+    if (fullname != "" && email != "" && password != "") {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password);
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.green,
+            content: Text("Registered Successfully")));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      } on FirebaseAuthException catch (e) {
+        // for development code
+        print('Failed with error code: ${e.code}');
+        print(e.message);
+
+        if (e.code == 'user-not-found') {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text("No user found for this email")));
+        } else if (e.code == 'wrong-password') {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text("Incorrect password!")));
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 25),
               TextFormField(
+                controller: fullnamecontroller,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   labelText: 'Full Name',
@@ -39,11 +83,18 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                 if (value == null || value.isEmpty) {
+                    return 'Please enter your name';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFormField(
+                controller: mailcontroller,
                 decoration: const InputDecoration(
                   labelText: 'Email',
                   prefixIcon: Icon(
@@ -53,11 +104,18 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFormField(
+                controller: passwordcontroller,
                 obscureText: true,
                 decoration: const InputDecoration(
                   labelText: 'Password',
@@ -68,13 +126,42 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'the password field is empty';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(),
-              CustomButton(text: "Sign Up", onPressed: () {}),
+              CustomButton(
+                  text: "Sign Up",
+                  onPressed: () {
+                    if (fullnamecontroller.text != "" &&
+                        mailcontroller.text != "" &&
+                        passwordcontroller.text != "") {
+                      setState(() {
+                        fullname = fullnamecontroller.text;
+                        email = mailcontroller.text;
+                        password = passwordcontroller.text;
+                      });
+                    } else if (
+                      mailcontroller.text == "" &&
+                        passwordcontroller.text == "") {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Text("The field(s) is empty"),
+                            );
+                          });
+                    }
+                    registration();
+                  }),
               const SizedBox(
                 height: 10,
               ),
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -82,9 +169,17 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(
                     width: 5,
                   ),
-                  Text(
-                    'Sign In',
-                    style: TextStyle(color: primaryColor),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignInPage()));
+                    },
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(color: primaryColor),
+                    ),
                   ),
                 ],
               ),
@@ -118,16 +213,24 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    child: Image.asset("assets/images/kingsChat.png"),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ComingSoon()));
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      child: Image.asset("assets/images/kingsChat.png"),
+                    ),
                   )
                 ],
               )

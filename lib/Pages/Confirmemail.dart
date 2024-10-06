@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kinds_store/Components/colors.dart';
+import 'package:kinds_store/Pages/Signin.dart';
+import 'package:kinds_store/Pages/Signup.dart';
 import 'package:kinds_store/Utiliis/Buttons.dart';
 
 class ConfirmEmailPage extends StatefulWidget {
@@ -10,6 +13,50 @@ class ConfirmEmailPage extends StatefulWidget {
 }
 
 class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
+  final _emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  Future passwordReset() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _emailController.text.trim());
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.green, content: Text("Reset email sent")));
+
+      _emailController.clear();
+    } on FirebaseAuthException catch (e) {
+      print(e);
+
+     if (e.code == 'invalid-email') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Invalid email address.'),
+        ));
+      } else if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('No user found with this email.'),
+        ));
+      } else if (e.code == 'too-many-requests') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.orange,
+          content: Text('Too many requests. Please try again later.'),
+        ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(e.message.toString()),
+        ));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +75,7 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
               ),
               const SizedBox(height: 25),
               TextFormField(
+                controller: _emailController,
                 decoration: const InputDecoration(
                   labelText: 'Email',
                   prefixIcon: Icon(
@@ -37,22 +85,41 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
                   ),
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
               ),
-              CustomButton(text: "Send Code", onPressed: () {}),
+              CustomButton(
+                  text: "Send Code",
+                  onPressed: () {
+                    passwordReset();
+                  }),
               const SizedBox(
                 height: 10,
               ),
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Create an account?'),
-                  SizedBox(
+                  const Text('Create an account?'),
+                  const SizedBox(
                     width: 5,
                   ),
-                  Text(
-                    'Sign Up',
-                    style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpPage()));
+                    },
+                    child: const Text(
+                      'Sign Up',
+                      style: TextStyle(
+                          color: primaryColor, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
@@ -68,18 +135,26 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
               const SizedBox(
                 height: 15,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      'Go back to Sign In',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor,
-                          decoration: TextDecoration.underline,
-                          decorationThickness: 1),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SignInPage()));
+                      },
+                      child: const Text(
+                        'Go back to Sign In',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: primaryColor,
+                            decoration: TextDecoration.underline,
+                            decorationThickness: 1),
+                      ),
                     ),
                   ),
                 ],
