@@ -1,5 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kinds_store/Coming_Soon.dart';
 import 'package:kinds_store/Components/colors.dart';
+import 'package:kinds_store/Pages/Confirmemail.dart';
+import 'package:kinds_store/Pages/Signup.dart';
+import 'package:kinds_store/Pages/home.dart';
 import 'package:kinds_store/Utiliis/Buttons.dart';
 
 class SignInPage extends StatefulWidget {
@@ -10,6 +16,37 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  String email = "";
+  String password = "";
+
+  TextEditingController emailcontroller = new TextEditingController();
+  TextEditingController passwordcontroller = new TextEditingController();
+
+  // function for login
+
+  usersignin() async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
+    } on FirebaseAuthException catch (e) {
+      // for development code
+      print('Failed with error code: ${e.code}');
+      print(e.message);
+
+      if (e.code == 'weak-password') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.orange,
+            content: Text("Password entered is too weak")));
+      } else if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.orange,
+            content: Text("Account already exists")));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +65,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
               const SizedBox(height: 25),
               TextFormField(
+                controller: emailcontroller,
                 decoration: const InputDecoration(
                   labelText: 'Email',
                   prefixIcon: Icon(
@@ -37,11 +75,18 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFormField(
+                controller: passwordcontroller,
                 obscureText: true,
                 decoration: const InputDecoration(
                   labelText: 'Password',
@@ -52,37 +97,79 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'The password is empty';
+                  }
+                  return null;
+                },
               ),
-              const Row(
-               mainAxisAlignment: MainAxisAlignment.end,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    "Forgotten Password?",
-                    style: TextStyle(
-                      fontSize: 12,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.black,
-                      decorationThickness: 1,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ConfirmEmailPage()));
+                    },
+                    child: const Text(
+                      "Forgotten Password?",
+                      style: TextStyle(
+                        fontSize: 12,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.black,
+                        decorationThickness: 1,
+                      ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(),
-              CustomButton(text: "Sign In", onPressed: () {}),
+              CustomButton(
+                  text: "Sign In",
+                  onPressed: () {
+                    if (emailcontroller.text != "" &&
+                        passwordcontroller.text != "") {
+                      setState(() {
+                        email = emailcontroller.text;
+                        password = passwordcontroller.text;
+                      });
+                    } else if (emailcontroller.text == "" &&
+                        passwordcontroller.text == "") {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Text("The field(s) is empty"),
+                            );
+                          });
+                    }
+                    usersignin();
+                  }),
               const SizedBox(
                 height: 10,
               ),
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Create an account?'),
-                  SizedBox(
+                  const Text('Create an account?'),
+                  const SizedBox(
                     width: 5,
                   ),
-                  Text(
-                    'Sign Up',
-                    style: TextStyle(color: primaryColor),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpPage()));
+                    },
+                    child: const Text(
+                      'Sign Up',
+                      style: TextStyle(color: primaryColor),
+                    ),
                   ),
                 ],
               ),
@@ -122,10 +209,18 @@ class _SignInPageState extends State<SignInPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    child: Image.asset("assets/images/kingsChat.png"),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ComingSoon()));
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      child: Image.asset("assets/images/kingsChat.png"),
+                    ),
                   )
                 ],
               )
