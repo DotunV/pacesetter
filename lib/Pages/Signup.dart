@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kinds_store/BottomNavigation.dart';
 import 'package:kinds_store/Coming_Soon.dart';
 import 'package:kinds_store/Components/colors.dart';
 import 'package:kinds_store/Pages/Signin.dart';
@@ -35,7 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
             backgroundColor: Colors.green,
             content: Text("Registered Successfully")));
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => BottomNavBar()));
       } on FirebaseAuthException catch (e) {
         // for development code
         print('Failed with error code: ${e.code}');
