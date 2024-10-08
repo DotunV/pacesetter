@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kinds_store/BottomNavigation.dart';
 import 'package:kinds_store/Coming_Soon.dart';
 import 'package:kinds_store/Components/colors.dart';
 import 'package:kinds_store/Pages/Confirmemail.dart';
 import 'package:kinds_store/Pages/Signup.dart';
-import 'package:kinds_store/Pages/home.dart';
 import 'package:kinds_store/Utiliis/Buttons.dart';
 
 class SignInPage extends StatefulWidget {
@@ -29,7 +28,7 @@ class _SignInPageState extends State<SignInPage> {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+          context, MaterialPageRoute(builder: (context) => const BottomNavBar()));
     } on FirebaseAuthException catch (e) {
       // for development code
       print('Failed with error code: ${e.code}');
@@ -43,6 +42,11 @@ class _SignInPageState extends State<SignInPage> {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: Colors.orange,
             content: Text("Account already exists")));
+      }
+       else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.orange,
+            content: Text("Password entered is incorrect")));
       }
     }
   }
