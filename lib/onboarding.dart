@@ -17,13 +17,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          body(),
-          dot(),
-          buttons(),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 60),
+            body(),
+            dot(),
+            buttons(),
+          ],
+        ),
       ),
     );
   }
@@ -67,7 +70,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: Text(
                         controller.items[currentIndex].description,
-                        style: const TextStyle(color: Colors.grey, fontSize: 16),
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 16),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -108,18 +112,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: TextButton(
         onPressed: () {
           setState(() {
-            if (currentIndex != controller.items.length - 1) currentIndex++;
-
-            else{
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => const IntroPage()));
+            if (currentIndex != controller.items.length - 1)
+              currentIndex++;
+            else {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const IntroPage()));
             }
-            
           });
         },
-        child: Text(currentIndex == controller.items.length - 1
-            ? "Get started"
-            : "Skip", style: const TextStyle(color: Colors.white),),
+        child: Text(
+          currentIndex == controller.items.length - 1 ? "Get started" : "Next",
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
     );
   }
