@@ -36,6 +36,7 @@ dependencies:
   flutter_dotenv:
   firebase_auth:
   cloud_firestore:
+  firebase_storage:
 
 #  statemanagement
   flutter_bloc:

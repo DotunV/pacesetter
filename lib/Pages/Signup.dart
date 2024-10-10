@@ -18,7 +18,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  bool isLoading = false;
+  
 
   String fullname = '';
   String email = '';
@@ -32,9 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   registration() async {
     if (fullname != "" && email != "" && password != "") {
-      setState(() {
-        isLoading = true; // Start showing loading indicator
-      });
+     
       try {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
@@ -46,11 +44,11 @@ class _SignUpPageState extends State<SignUpPage> {
         // saving the user info into database
         String Id = randomAlphaNumeric(10);
 
-        await SharedPreferenceHelper().getUserId(Id);
-        await SharedPreferenceHelper().getUserEmail(mailcontroller.text);
-        await SharedPreferenceHelper().getUserName(fullnamecontroller.text);
+        await SharedPreferenceHelper().saveUserId(Id);
+        await SharedPreferenceHelper().saveUserEmail(mailcontroller.text);
+        await SharedPreferenceHelper().saveUserName(fullnamecontroller.text);
         await SharedPreferenceHelper()
-            .getUserImage("assets/images/imageplaceholder.jpg");
+            .saveUserImage("assets/images/imageplaceholder.jpg");
 
         Map<String, dynamic> userInfoMap = {
           "Name": fullnamecontroller.text,
@@ -64,8 +62,8 @@ class _SignUpPageState extends State<SignUpPage> {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => BottomNavBar()));
       } on FirebaseAuthException catch (e) {
-        print('Failed with error code: ${e.code}');
-        print(e.message);
+        // print('Failed with error code: ${e.code}');
+        // print(e.message);
 
         if (e.code == 'user-not-found') {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -77,9 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
               content: Text("Incorrect password!")));
         }
       } finally {
-        setState(() {
-          isLoading = false; // Stop showing loading indicator
-        });
+        
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -92,11 +88,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Padding(
+      body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Form(
                 child: Column(

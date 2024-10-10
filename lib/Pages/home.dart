@@ -1,18 +1,53 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:kinds_store/Admin/Login.dart';
 import 'package:kinds_store/Pages/Category_page.dart';
+import 'package:kinds_store/Pages/all_category.dart';
+import 'package:kinds_store/Pages/notification.dart';
+import 'package:kinds_store/Services/shared_pref.dart';
 import 'package:kinds_store/widgets/cards/product_card.dart';
 import 'package:kinds_store/widgets/carousel_banner.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    String name;
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  String? name, image;
+
+  Future<void> getUserData() async {
+    try {
+      // Get the currently signed-in user
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        // Fetch user data from Firestore
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        setState(() {
+          name =
+              userDoc['Name']; // Assuming 'name' is the field name in Firestore
+          image = userDoc[
+              'image']; // Assuming 'image' is the field name for the profile picture
+        });
+      }
+    } catch (e) {
+      print("Error fetching user data: $e");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     List categories = [
       'Food',
       'Fashion',
@@ -26,6 +61,26 @@ class HomePage extends StatelessWidget {
       'Grocery',
       'Electronics',
     ];
+
+    getthesharedpref() async {
+      name = await SharedPreferenceHelper().getUserName();
+      image = await SharedPreferenceHelper().getUserImage();
+
+      setState(() {});
+    }
+
+    ontheload() async {
+      await getthesharedpref();
+      print("Username: $name, Image: $image");
+      setState(() {});
+    }
+
+    @override
+    void initState() {
+      super.initState();
+      ontheload();
+    }
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -37,17 +92,39 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // notification icon
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [Icon(Iconsax.notification)],
+                    children: [
+                       InkWell(
+                        onTap: () {
+                          Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                         NotificationPage()));
+                        },
+                        child: Icon(Iconsax.notification)),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AdminLoginScreen()));
+                          },
+                          child: const Icon(Icons.person_4))
+                    ],
                   ),
                   const SizedBox(
                     height: 20,
                   ),
 
                   // greetings
-                  const Text(
-                    "Welcome",
+                  Text(
+                    "Welcome ${name ?? 'Guest'}",
                     style: TextStyle(fontWeight: FontWeight.w900),
                   ),
                   const SizedBox(
@@ -115,11 +192,16 @@ class HomePage extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
-                      Text("See all",
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.blue[800],
-                              fontWeight: FontWeight.w500)),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>CategoriesPage()));
+                        },
+                        child: Text("See all",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.blue[800],
+                                fontWeight: FontWeight.w500)),
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -139,7 +221,7 @@ class HomePage extends StatelessWidget {
                         }),
                   ),
                   const SizedBox(
-                    height: 25,
+                    height: 30,
                   ),
 
                   const Text(
@@ -147,7 +229,7 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 10,
                   ),
 
                   const Row(
@@ -191,7 +273,7 @@ class CategoryBtn extends StatelessWidget {
                 builder: (context) => CategoryScreen(category: name)));
       },
       child: Container(
-        margin: EdgeInsets.only(right: 20),
+        margin: const EdgeInsets.only(right: 20),
         padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),

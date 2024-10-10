@@ -14,17 +14,4 @@ class DatabaseMethods {
         .collection(categoryname)
         .add(userInfoMap);
   }
-
-  Future <Stream<QuerySnapshot>> getProducts (String category) async{
-    return  FirebaseFirestore.instance.collection(category).snapshots();
-  }
-
-
-  // Future<Stream<QuerySnapshot>> getProducts(String category) async {
-  //   return FirebaseFirestore.instance
-  //       .collection('products') // Assuming your collection is named 'products'
-  //       .where('Category', isEqualTo: category) // Filter by 'Category' field
-  //       .snapshots();
-  // }
-
 }
