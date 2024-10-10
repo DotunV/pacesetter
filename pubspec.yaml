@@ -43,10 +43,12 @@ dependencies:
   get:
 
 # others
-  get_storage:
+  shared_preferences: ^2.3.2
   flutter_native_splash:
   smooth_page_indicator:
   carousel_slider:
+  random_string:
+  image_picker:
 
 
 
