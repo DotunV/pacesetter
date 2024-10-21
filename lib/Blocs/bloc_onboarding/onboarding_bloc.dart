@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kinds_store/Blocs/bloc_onboarding/onboarding_event.dart';
-import 'package:kinds_store/Blocs/bloc_onboarding/onboarding_state.dart';
+import 'package:kings_store/Blocs/bloc_onboarding/onboarding_event.dart';
+import 'package:kings_store/Blocs/bloc_onboarding/onboarding_state.dart';
 
 class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   final int totalPages;

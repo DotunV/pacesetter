@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:kinds_store/Components/colors.dart';
-import 'package:kinds_store/Pages/product_page.dart';
-import 'package:kinds_store/Services/database.dart';
-import 'package:kinds_store/Utils/box_shadow.dart';
+import 'package:kings_store/Components/colors.dart';
+import 'package:kings_store/Pages/product_page.dart';
+import 'package:kings_store/Services/database.dart';
+import 'package:kings_store/Utils/box_shadow.dart';
 
 class CategoryScreen extends StatefulWidget {
   String category;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kinds_store/Components/splash_screen_data.dart';
-import 'package:kinds_store/Components/colors.dart';
-import 'package:kinds_store/Pages/intro_page.dart';
+import 'package:kings_store/Components/splash_screen_data.dart';
+import 'package:kings_store/Components/colors.dart';
+import 'package:kings_store/Pages/intro_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

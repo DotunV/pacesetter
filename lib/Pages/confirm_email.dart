@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:kinds_store/Components/colors.dart';
-import 'package:kinds_store/Pages/signin.dart';
-import 'package:kinds_store/Pages/signup.dart';
-import 'package:kinds_store/Utils/buttons.dart';
+import 'package:kings_store/Components/colors.dart';
+import 'package:kings_store/Pages/signin.dart';
+import 'package:kings_store/Pages/signup.dart';
+import 'package:kings_store/Utils/buttons.dart';
 
 class ConfirmEmailPage extends StatefulWidget {
   const ConfirmEmailPage({super.key});

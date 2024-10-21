@@ -1,4 +1,4 @@
-import 'package:kinds_store/Components/splash_screen_info.dart';
+import 'package:kings_store/Components/splash_screen_info.dart';
 
 class OnboardingData {
   List<SplashScreenInfo> items = [

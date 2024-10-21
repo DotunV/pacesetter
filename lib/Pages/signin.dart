@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:kinds_store/widgets/buttom_navigation.dart';
-import 'package:kinds_store/Pages/coming_soon_page.dart';
-import 'package:kinds_store/Components/colors.dart';
-import 'package:kinds_store/Pages/confirm_email.dart';
-import 'package:kinds_store/Pages/signup.dart';
-import 'package:kinds_store/Utils/buttons.dart';
+import 'package:kings_store/widgets/buttom_navigation.dart';
+import 'package:kings_store/Pages/coming_soon_page.dart';
+import 'package:kings_store/Components/colors.dart';
+import 'package:kings_store/Pages/confirm_email.dart';
+import 'package:kings_store/Pages/signup.dart';
+import 'package:kings_store/Utils/buttons.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});

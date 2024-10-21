@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:kinds_store/Pages/category_page.dart';
-import 'package:kinds_store/widgets/cards/product_card.dart';
-import 'package:kinds_store/widgets/carousel_banner.dart';
+import 'package:kings_store/Pages/category_page.dart';
+import 'package:kings_store/widgets/cards/product_card.dart';
+import 'package:kings_store/widgets/carousel_banner.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
