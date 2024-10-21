@@ -1,3 +1,6 @@
 {
-  "java.compile.nullAnalysis.mode": "automatic"
+  "recommendations": [
+    "dart-code.flutter",
+    "esbenp.prettier-vscode"
+  ]
 }

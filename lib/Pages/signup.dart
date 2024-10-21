@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kinds_store/widgets/buttom_navigation.dart';
 import 'package:kinds_store/Pages/coming_soon_page.dart';
 import 'package:kinds_store/Components/colors.dart';
@@ -61,8 +60,8 @@ class _SignUpPageState extends State<SignUpPage> {
         await DatabaseMethods().addUserDetails(userInfoMap, Id);
         // end saving the user info into database
 
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const BottomNavBar()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const BottomNavBar()));
       } on FirebaseAuthException catch (e) {
         print('Failed with error code: ${e.code}');
         print(e.message);

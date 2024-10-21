@@ -33,7 +33,7 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
     } on FirebaseAuthException catch (e) {
       print(e);
 
-     if (e.code == 'invalid-email') {
+      if (e.code == 'invalid-email') {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           backgroundColor: Colors.red,
           content: Text('Invalid email address.'),

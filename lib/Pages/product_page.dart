@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:kinds_store/Components/colors.dart';
 
 class ProductScreen extends StatefulWidget {
   String image, name, detail, price;
-  ProductScreen({super.key, required this.image, required this.name, required this.detail, required this.price});
+  ProductScreen(
+      {super.key,
+      required this.image,
+      required this.name,
+      required this.detail,
+      required this.price});
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -37,7 +40,7 @@ class _ProductScreenState extends State<ProductScreen> {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                widget.image ,
+                widget.image,
                 fit: BoxFit.contain,
               ),
             ),
@@ -50,12 +53,12 @@ class _ProductScreenState extends State<ProductScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
-                     widget.name ,
+                    Text(
+                      widget.name,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                     Text(
-                       "${widget.price}Espees",
+                    Text(
+                      "${widget.price}Espees",
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Row(
@@ -142,7 +145,10 @@ class _ProductScreenState extends State<ProductScreen> {
                   border: Border.all(color: Colors.lightBlue),
                   color: Colors.lightBlueAccent.shade100,
                   borderRadius: BorderRadius.circular(25)),
-              child: const Text("Details", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),),
+              child: const Text(
+                "Details",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
             )
           ],
         ),

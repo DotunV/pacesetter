@@ -42,7 +42,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     childAspectRatio: 1,
                     mainAxisExtent: 10,
                     crossAxisSpacing: 10.0,
-                    
                   ),
                   itemCount: snapshot.data.docs.length,
                   itemBuilder: (context, index) {
@@ -65,7 +64,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         width: MediaQuery.of(context).size.width / 2.3,
                         padding: const EdgeInsets.all(1),
                         decoration: BoxDecoration(
-                            boxShadow: [shadowStyle.shadowOFProductCard],
+                            boxShadow: const [shadowStyle.shadowOFProductCard],
                             borderRadius: BorderRadius.circular(16)),
 
                         child: Column(
@@ -83,11 +82,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ),
                             Text(
                               ds["Name"],
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
                               ds["Price"] + "Espees",
-                              style: const TextStyle(fontWeight: FontWeight.normal),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

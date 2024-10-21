@@ -13,7 +13,7 @@ class ProductCards extends StatelessWidget {
       width: MediaQuery.of(context).size.width / 2.3,
       padding: const EdgeInsets.all(1),
       decoration: BoxDecoration(
-          boxShadow: [shadowStyle.shadowOFProductCard],
+          boxShadow: const [shadowStyle.shadowOFProductCard],
           borderRadius: BorderRadius.circular(16)),
 
       child: Column(
@@ -58,10 +58,14 @@ class ProductCards extends StatelessWidget {
             height: 8,
           ),
           Container(
-           padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
             decoration: BoxDecoration(
                 color: primaryColor, borderRadius: BorderRadius.circular(6)),
-            child: const Center(child: Text("Add to Cart", style: TextStyle(color: Colors.white),)),
+            child: const Center(
+                child: Text(
+              "Add to Cart",
+              style: TextStyle(color: Colors.white),
+            )),
           )
         ],
       ),
