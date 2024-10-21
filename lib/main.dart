@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:kinds_store/Pages/Product_Page.dart';
+import 'package:kinds_store/Pages/product_page.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'package:kinds_store/onboarding.dart';
+import 'package:kinds_store/Pages/splash_screen_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {

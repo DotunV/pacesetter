@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:kinds_store/Pages/Category_page.dart';
+import 'package:kinds_store/Pages/category_page.dart';
 import 'package:kinds_store/widgets/cards/product_card.dart';
 import 'package:kinds_store/widgets/carousel_banner.dart';
 
