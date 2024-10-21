@@ -5,7 +5,7 @@ import 'package:kinds_store/Components/colors.dart';
 
 class ProductScreen extends StatefulWidget {
   String image, name, detail, price;
-  ProductScreen({required this.image, required this.name, required this.detail, required this.price});
+  ProductScreen({super.key, required this.image, required this.name, required this.detail, required this.price});
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -52,11 +52,11 @@ class _ProductScreenState extends State<ProductScreen> {
                   children: [
                      Text(
                      widget.name ,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                      Text(
-                       widget.price +"Espees",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                       "${widget.price}Espees",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Row(
                       children: [

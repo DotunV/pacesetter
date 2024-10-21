@@ -10,7 +10,7 @@ import 'package:kinds_store/Utiliis/box_shadow.dart';
 
 class CategoryScreen extends StatefulWidget {
   String category;
-  CategoryScreen({required this.category});
+  CategoryScreen({super.key, required this.category});
 
   @override
   State<CategoryScreen> createState() => _CategoryScreenState();
@@ -37,7 +37,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           return snapshot.hasData
               ? GridView.builder(
                   padding: EdgeInsets.zero,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 1,
                     mainAxisExtent: 10,
@@ -83,11 +83,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ),
                             Text(
                               ds["Name"],
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
                               ds["Price"] + "Espees",
-                              style: TextStyle(fontWeight: FontWeight.normal),
+                              style: const TextStyle(fontWeight: FontWeight.normal),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -140,7 +140,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
                 Expanded(child: allProduct()),

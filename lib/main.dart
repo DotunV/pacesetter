@@ -6,7 +6,7 @@ import 'package:kinds_store/onboarding.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
-  await dotenv.load(fileName: ".env");
+  // await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: ProductScreen(),
-      home: OnboardingScreen(),
+      home: const OnboardingScreen(),
       // home: BottomAppBar(),
     );
   }

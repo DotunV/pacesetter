@@ -21,7 +21,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 60),
+            const SizedBox(height: 60),
             body(),
             dot(),
             buttons(),
@@ -112,9 +112,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: TextButton(
         onPressed: () {
           setState(() {
-            if (currentIndex != controller.items.length - 1)
+            if (currentIndex != controller.items.length - 1) {
               currentIndex++;
-            else {
+            } else {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const IntroPage()));
             }

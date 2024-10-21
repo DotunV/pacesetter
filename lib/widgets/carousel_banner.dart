@@ -55,7 +55,7 @@ class CarouselBanner extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
         Obx(
@@ -65,7 +65,7 @@ class CarouselBanner extends StatelessWidget {
               for (int i = 0; i < 3; i++)
                 Container(
                   height: 10,
-                  margin: EdgeInsets.only(right: 10),
+                  margin: const EdgeInsets.only(right: 10),
                   width: 10,
                   decoration: BoxDecoration(
                       color: controller.carousalCurrentIndex.value == i

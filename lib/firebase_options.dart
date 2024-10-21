@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'king-store-81e93.appspot.com',
     measurementId: 'G-RT2W1FX5JH',
   );
+
 }

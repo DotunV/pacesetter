@@ -125,7 +125,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
+                  SizedBox(
                     height: 35,
                     child: ListView.builder(
                         shrinkWrap: true,
@@ -179,7 +179,7 @@ class HomePage extends StatelessWidget {
 
 class CategoryBtn extends StatelessWidget {
   String title, name;
-  CategoryBtn({required this.title, required this.name});
+  CategoryBtn({super.key, required this.title, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +191,7 @@ class CategoryBtn extends StatelessWidget {
                 builder: (context) => CategoryScreen(category: name)));
       },
       child: Container(
-        margin: EdgeInsets.only(right: 20),
+        margin: const EdgeInsets.only(right: 20),
         padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),

@@ -19,8 +19,8 @@ class _SignInPageState extends State<SignInPage> {
   String password = "";
   bool isLoading = false;
 
-  TextEditingController emailcontroller = new TextEditingController();
-  TextEditingController passwordcontroller = new TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
 
   // function for login
 
@@ -53,7 +53,7 @@ class _SignInPageState extends State<SignInPage> {
       }
     } finally {
       setState(() {
-        isLoading = false; 
+        isLoading = false;
       });
     }
   }
@@ -63,7 +63,7 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Padding(
@@ -159,7 +159,7 @@ class _SignInPageState extends State<SignInPage> {
                             showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return AlertDialog(
+                                  return const AlertDialog(
                                     content: Text("The field(s) is empty"),
                                   );
                                 });
@@ -232,9 +232,9 @@ class _SignInPageState extends State<SignInPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ComingSoon()));
+                                    builder: (context) => const ComingSoon()));
                           },
-                          child: Container(
+                          child: SizedBox(
                             height: 50,
                             width: 50,
                             child: Image.asset("assets/images/kingsChat.png"),

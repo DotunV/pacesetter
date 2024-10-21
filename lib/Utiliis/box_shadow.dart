@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class shadowStyle {
-  static final shadowOFProductCard = BoxShadow(
+  static final shadowOFProductCard = const BoxShadow(
     color: Colors.transparent,
     blurRadius: 50,
     spreadRadius: 7,

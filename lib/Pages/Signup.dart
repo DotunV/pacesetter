@@ -24,9 +24,9 @@ class _SignUpPageState extends State<SignUpPage> {
   String email = '';
   String password = '';
 
-  TextEditingController fullnamecontroller = new TextEditingController();
-  TextEditingController mailcontroller = new TextEditingController();
-  TextEditingController passwordcontroller = new TextEditingController();
+  TextEditingController fullnamecontroller = TextEditingController();
+  TextEditingController mailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
 
   // the reg function
 
@@ -62,7 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
         // end saving the user info into database
 
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => BottomNavBar()));
+            context, MaterialPageRoute(builder: (context) => const BottomNavBar()));
       } on FirebaseAuthException catch (e) {
         print('Failed with error code: ${e.code}');
         print(e.message);
@@ -93,7 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Padding(
@@ -190,7 +190,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return AlertDialog(
+                                  return const AlertDialog(
                                     content: Text("The field(s) is empty"),
                                   );
                                 });
@@ -204,7 +204,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Already have an account?'),
+                        const Text('Already have an account?'),
                         const SizedBox(
                           width: 5,
                         ),
@@ -213,9 +213,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SignInPage()));
+                                    builder: (context) => const SignInPage()));
                           },
-                          child: Text(
+                          child: const Text(
                             'Sign In',
                             style: TextStyle(color: primaryColor),
                           ),
@@ -263,9 +263,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ComingSoon()));
+                                    builder: (context) => const ComingSoon()));
                           },
-                          child: Container(
+                          child: SizedBox(
                             height: 50,
                             width: 50,
                             child: Image.asset("assets/images/kingsChat.png"),
