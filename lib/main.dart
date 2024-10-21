@@ -1,17 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:kinds_store/Pages/product_page.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:kinds_store/Pages/splash_screen_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
-  // await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
 
   runApp(const MyApp());
 }

@@ -33,7 +33,7 @@ dependencies:
 
 # firebase
   firebase_core:
-  flutter_dotenv:
+  flutter_dotenv: ^5.2.1
   firebase_auth:
   cloud_firestore:
 
