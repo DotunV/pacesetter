@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kings_store/Components/colors.dart';
-import 'package:kings_store/Utils/box_shadow.dart';
+import 'package:kings_store/utils/box_shadow.dart';
 
 class ProductCards extends StatelessWidget {
   const ProductCards({super.key});

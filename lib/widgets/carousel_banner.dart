@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kings_store/Components/colors.dart';
-import 'package:kings_store/Controller/home_controller.dart';
+import 'package:kings_store/controllers/home_controller.dart';
 
 class CarouselBanner extends StatelessWidget {
   const CarouselBanner({
