@@ -35,8 +35,6 @@ class _SignInPageState extends State<SignInPage> {
           MaterialPageRoute(builder: (context) => const BottomNavBar()));
     } on FirebaseAuthException catch (e) {
       // for development code
-      print('Failed with error code: ${e.code}');
-      print(e.message);
 
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
